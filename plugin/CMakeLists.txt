@@ -4,7 +4,7 @@ project(plugin)
 juce_add_plugin(Juce6DemoPlugin
         PRODUCT_NAME "Juce6 Demo"               # The name of the final executable, which can differ from the target name
         VERSION ${CMAKE_PROJECT_VERSION}        # Version
-        FORMATS Standalone              # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+        FORMATS AU VST3 Standalone              # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
         IS_SYNTH FALSE                          # Is this a synth or an effect?
         NEEDS_MIDI_INPUT FALSE                  # Does the plugin need midi input?
         NEEDS_MIDI_OUTPUT FALSE                 # Does the plugin need midi output?
