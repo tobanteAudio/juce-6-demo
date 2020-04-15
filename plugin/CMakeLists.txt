@@ -1,0 +1,37 @@
+project(plugin)
+
+
+juce_add_plugin(Juce6DemoPlugin
+        PRODUCT_NAME "Juce6 Demo"               # The name of the final executable, which can differ from the target name
+        VERSION ${CMAKE_PROJECT_VERSION}        # Version
+        FORMATS AU VST3 Standalone              # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+        IS_SYNTH FALSE                          # Is this a synth or an effect?
+        NEEDS_MIDI_INPUT FALSE                  # Does the plugin need midi input?
+        NEEDS_MIDI_OUTPUT FALSE                 # Does the plugin need midi output?
+        IS_MIDI_EFFECT FALSE                    # Is this plugin a MIDI effect?
+        EDITOR_WANTS_KEYBOARD_FOCUS FALSE       # Does the editor need keyboard focus?
+        COPY_PLUGIN_AFTER_BUILD FALSE           # Should the plugin be installed to a default location after building?
+        PLUGIN_MANUFACTURER_CODE toAu           # A four-character manufacturer id with at least one upper-case character
+        PLUGIN_CODE J6dm                        # A unique four-character plugin id with at least one upper-case character
+        )
+
+target_sources(Juce6DemoPlugin PRIVATE
+        plugin_editor.cpp
+        plugin_processor.cpp
+        )
+
+target_include_directories(Juce6DemoPlugin PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(Juce6DemoPlugin
+        PUBLIC
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1
+        )
+
+# juce_add_binary_data(AudioPluginData SOURCES ...)
+target_link_libraries(Juce6DemoPlugin PRIVATE
+        # AudioPluginData
+        juce::juce_audio_utils
+        juce::juce_dsp
+        )
