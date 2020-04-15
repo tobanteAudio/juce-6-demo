@@ -48,7 +48,7 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
 - PopOS (Ubuntu)
 - GCC 9.2, Clang 9, Clang trunk
-- CMake ?
+- CMake 3.16.2
   - Generators: Makefile, Ninja
 
 #### Linux Issues
