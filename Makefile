@@ -30,7 +30,7 @@ sanitize:
 .PHONY: coverage
 coverage:
 	cmake -S. -G$(GENERATOR) -B build_coverage -DTOBANTEAUDIO_BUILD_COVERAGE=ON
-	cd build_coverage && cmake --build .
+	cd build_coverage && cmake --build . -- -j2
 	cd build_coverage && lcov -c -i -d . --base-directory . -o base_cov.info
 	cd build_coverage && ctest
 	cd build_coverage && lcov -c -d . --base-directory . -o test_cov.info
