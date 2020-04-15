@@ -33,7 +33,7 @@ Juce6DemoProcessor::Juce6DemoProcessor()
     gain_     = parameters_.getRawParameterValue("gain");
 }
 
-Juce6DemoProcessor::~Juce6DemoProcessor() {}
+Juce6DemoProcessor::~Juce6DemoProcessor() { }
 
 const juce::String Juce6DemoProcessor::getName() const { return JucePlugin_Name; }
 
@@ -110,7 +110,7 @@ void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     outputGain_.setGainLinear(gain_->load());
 }
 
-void Juce6DemoProcessor::releaseResources() {}
+void Juce6DemoProcessor::releaseResources() { }
 
 bool Juce6DemoProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
@@ -142,9 +142,7 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     auto const totalNumInputChannels  = getTotalNumInputChannels();
     auto const totalNumOutputChannels = getTotalNumOutputChannels();
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-    {
-        buffer.clear(i, 0, buffer.getNumSamples());
-    }
+    { buffer.clear(i, 0, buffer.getNumSamples()); }
 
     // dsp buffer
     juce::dsp::AudioBlock<float> ioBuffer(buffer);

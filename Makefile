@@ -17,4 +17,5 @@ clean:
 
 .PHONY: format
 format:
-	find src -iname '*.h' -o -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	find plugin -iname '*.h' -o -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	find tests -iname '*.h' -o -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
