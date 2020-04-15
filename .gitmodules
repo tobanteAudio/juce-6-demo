@@ -1,0 +1,6 @@
+[submodule "3rd_party/Catch2"]
+	path = 3rd_party/Catch2
+	url = https://github.com/catchorg/Catch2
+[submodule "3rd_party/JUCE"]
+	path = 3rd_party/JUCE
+	url = https://github.com/WeAreROLI/JUCE.git
