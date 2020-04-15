@@ -41,6 +41,18 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     endif()
 endif()
 
+
+option(TOBANTEAUDIO_BUILD_TESTS          "Build the unit tests with Catch2"  ON)
+option(TOBANTEAUDIO_BUILD_COVERAGE       "Build with coverage enabled"       OFF)
+option(TOBANTEAUDIO_CLANG_TIDY           "Run clang-tidy with the compiler." OFF)
+option(TOBANTEAUDIO_CLANG_TIDY_FIX       "Run & auto fix clang-tidy with the compiler." OFF)
+
+# Cmake setup
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(CodeCoverage)
+include(CompilerOptions)
+include(CompilerWarnings)
+
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 # juce_set_vst2_sdk_path(...)
 # juce_set_aax_sdk_path(...)

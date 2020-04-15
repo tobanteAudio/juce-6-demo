@@ -32,6 +32,9 @@ target_compile_definitions(Juce6DemoPlugin
 
 # juce_add_binary_data(AudioPluginData SOURCES ...)
 target_link_libraries(Juce6DemoPlugin PRIVATE
+        tobanteAudio::CompilerWarnings
+        tobanteAudio::CompilerOptions
+        tobanteAudio::CodeCoverage
         # AudioPluginData
         juce::juce_audio_utils
         juce::juce_dsp
