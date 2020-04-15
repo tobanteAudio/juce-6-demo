@@ -14,3 +14,7 @@ build:
 .PHONY: clean
 clean:
 	rm -rf build
+
+.PHONY: format
+format:
+	find src -iname '*.h' -o -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
