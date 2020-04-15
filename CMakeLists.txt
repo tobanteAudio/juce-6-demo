@@ -67,11 +67,13 @@ target_sources(CMakePluginExample PRIVATE
     plugin/plugin_processor.cpp
 )
 
+target_include_directories(CMakePluginExample PUBLIC plugin)
 target_compile_definitions(CMakePluginExample
     PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1
 )
 
 # juce_add_binary_data(AudioPluginData SOURCES ...)
@@ -80,3 +82,24 @@ target_link_libraries(CMakePluginExample PRIVATE
     juce::juce_audio_utils
     juce::juce_dsp
 )
+
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/contrib")
+enable_testing()
+add_subdirectory(3rd_party/Catch2 ${CMAKE_CURRENT_BINARY_DIR}/3rd_party/Catch2 EXCLUDE_FROM_ALL)
+include(CTest)
+include(Catch)
+
+set (tcc_test_source tests/main_test.cpp tests/processor_test.cpp)
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${tcc_test_source})
+add_executable(test_demo ${tcc_test_source})
+target_include_directories(test_demo PRIVATE ${CMAKE_SOURCE_DIR}/3rd_party/JUCE/modules)
+target_link_libraries(test_demo
+        PRIVATE
+        CMakePluginExample
+        Catch2::Catch2
+)
+
+
+include(CTest)
+include(Catch)
+catch_discover_tests(test_demo)
