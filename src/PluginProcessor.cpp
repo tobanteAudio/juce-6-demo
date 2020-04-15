@@ -90,12 +90,12 @@ void Juce6DemoProcessor::changeProgramName(int index, const juce::String& newNam
 
 void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    jassert(getNumInputChannels() == getNumOutputChannels());
+    jassert(getTotalNumInputChannels() == getTotalNumOutputChannels());
 
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate       = sampleRate;
-    spec.numChannels      = getNumInputChannels();
+    spec.numChannels      = getTotalNumInputChannels();
 
     reverb_.prepare(spec);
     auto reverbParams     = juce::dsp::Reverb::Parameters {};

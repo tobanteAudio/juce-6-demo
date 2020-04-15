@@ -13,7 +13,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_CXX_EXTENSIONS NO)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     # set(BUILD_SHARED_LIBS OFF)
-    
+
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag("-march=native" COMPILER_SUPPORTS_MARCH_NATIVE)
     if(COMPILER_SUPPORTS_MARCH_NATIVE)
@@ -39,7 +39,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     endif()
 endif()
 
-add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)   
+add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 # juce_set_vst2_sdk_path(...)
 # juce_set_aax_sdk_path(...)
 
@@ -53,12 +53,12 @@ juce_add_plugin(CMakePluginExample
     NEEDS_MIDI_OUTPUT FALSE                 # Does the plugin need midi output?
     IS_MIDI_EFFECT FALSE                    # Is this plugin a MIDI effect?
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE       # Does the editor need keyboard focus?
-    COPY_PLUGIN_AFTER_BUILD TRUE            # Should the plugin be installed to a default location after building?
+    COPY_PLUGIN_AFTER_BUILD FALSE            # Should the plugin be installed to a default location after building?
     PLUGIN_MANUFACTURER_CODE Juce           # A four-character manufacturer id with at least one upper-case character
     PLUGIN_CODE Dem0                        # A unique four-character plugin id with at least one upper-case character
     FORMATS AU VST3 Standalone              # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
     PRODUCT_NAME "Audio Plugin Example"     # The name of the final executable, which can differ from the target name
-)       
+)
 
 # if(TOBANTEAUDIO_BUILD_LTO)
 #     message(STATUS "tobanteAudio: LTO is enabled for CMakePluginExample.")
@@ -78,8 +78,8 @@ target_sources(CMakePluginExample PRIVATE
 
 target_compile_definitions(CMakePluginExample
     PUBLIC
-        JUCE_WEB_BROWSER=0 
-        JUCE_USE_CURL=0    
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0
 )
 
@@ -101,7 +101,7 @@ target_compile_definitions(CMakePluginExample
 # juce_add_modules(${CMAKE_SOURCE_DIR}/3rd_party/JUCE/modules/juce_dsp)
 
 target_link_libraries(CMakePluginExample PRIVATE
-    # AudioPluginData          
+    # AudioPluginData
     juce::juce_audio_utils
     juce::juce_dsp
 )
