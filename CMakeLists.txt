@@ -4,16 +4,16 @@ project(CMAKE_PLUGIN_EXAMPLE VERSION 0.1.0)
 
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    # Let's nicely support folders in IDE's
+    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
     # Let's ensure -std=c++xx instead of -std=g++xx
     set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to conform to")
     set(CMAKE_CXX_STANDARD_REQUIRED YES)
     set(CMAKE_CXX_EXTENSIONS NO)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-    set(BUILD_SHARED_LIBS OFF)
+    # set(BUILD_SHARED_LIBS OFF)
     
-    # Let's nicely support folders in IDE's
-    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag("-march=native" COMPILER_SUPPORTS_MARCH_NATIVE)
     if(COMPILER_SUPPORTS_MARCH_NATIVE)
@@ -31,12 +31,12 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         endif()
     endif()
 
-    # include(CheckIPOSupported)
-    # check_ipo_supported(RESULT TOBANTEAUDIO_BUILD_LTO)
-    # if(TOBANTEAUDIO_BUILD_LTO)
-    #     message(STATUS "tobanteAudio: LTO is available.")
-    #     set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-    # endif()
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT TOBANTEAUDIO_BUILD_LTO)
+    if(TOBANTEAUDIO_BUILD_LTO)
+        message(STATUS "tobanteAudio: LTO is available.")
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    endif()
 endif()
 
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)   
@@ -44,33 +44,27 @@ add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 # juce_set_aax_sdk_path(...)
 
 juce_add_plugin(CMakePluginExample
-    # VERSION ...                               # Set this if the plugin version is different to the project version
-    # ICON_BIG ...                              # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
+    # VERSION ...                           # Set this if the plugin version is different to the project version
+    # ICON_BIG ...                          # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
     # ICON_SMALL ...
-    # COMPANY_NAME ...                          # Specify the name of the plugin's author
-    # IS_SYNTH TRUE/FALSE                       # Is this a synth or an effect?
-    # NEEDS_MIDI_INPUT TRUE/FALSE               # Does the plugin need midi input?
-    # NEEDS_MIDI_OUTPUT TRUE/FALSE              # Does the plugin need midi output?
-    # IS_MIDI_EFFECT TRUE/FALSE                 # Is this plugin a MIDI effect?
-    # EDITOR_WANTS_KEYBOARD_FOCUS TRUE/FALSE    # Does the editor need keyboard focus?
-    # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE        # Should the plugin be installed to a default location after building?
-    PLUGIN_MANUFACTURER_CODE Juce               # A four-character manufacturer id with at least one upper-case character
-    PLUGIN_CODE Dem0                            # A unique four-character plugin id with at least one upper-case character
-    FORMATS AU VST3 Standalone                  # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
-    PRODUCT_NAME "Audio Plugin Example")        # The name of the final executable, which can differ from the target name
+    COMPANY_NAME "tobanteAudio"             # Specify the name of the plugin's author
+    IS_SYNTH FALSE                          # Is this a synth or an effect?
+    NEEDS_MIDI_INPUT FALSE                  # Does the plugin need midi input?
+    NEEDS_MIDI_OUTPUT FALSE                 # Does the plugin need midi output?
+    IS_MIDI_EFFECT FALSE                    # Is this plugin a MIDI effect?
+    EDITOR_WANTS_KEYBOARD_FOCUS FALSE       # Does the editor need keyboard focus?
+    COPY_PLUGIN_AFTER_BUILD TRUE            # Should the plugin be installed to a default location after building?
+    PLUGIN_MANUFACTURER_CODE Juce           # A four-character manufacturer id with at least one upper-case character
+    PLUGIN_CODE Dem0                        # A unique four-character plugin id with at least one upper-case character
+    FORMATS AU VST3 Standalone              # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+    PRODUCT_NAME "Audio Plugin Example"     # The name of the final executable, which can differ from the target name
+)       
 
 # if(TOBANTEAUDIO_BUILD_LTO)
 #     message(STATUS "tobanteAudio: LTO is enabled for CMakePluginExample.")
 #     set_property(TARGET CMakePluginExample PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
 #     # set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 # endif()
-# `juce_generate_juce_header` will create a JuceHeader.h for a given target, which will be generated
-# into your build tree. This should be included with `#include <JuceHeader.h>`. The include path for
-# this header will be automatically added to the target. The main function of the JuceHeader is to
-# include all your JUCE module headers; if you're happy to include module headers directly, you
-# probably don't need to call this.
-
-# juce_generate_juce_header(CMakePluginExample)
 
 # `target_sources` adds source files to a target. We pass the target that needs the sources as the
 # first argument, then a visibility parameter for the sources (PRIVATE is normally best practice,
