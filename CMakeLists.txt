@@ -72,8 +72,8 @@ juce_add_plugin(CMakePluginExample
 # that will be built into the target. This is a standard CMake command.
 
 target_sources(CMakePluginExample PRIVATE
-    src/PluginEditor.cpp
-    src/PluginProcessor.cpp
+    plugin/plugin_editor.cpp
+    plugin/plugin_processor.cpp
 )
 
 target_compile_definitions(CMakePluginExample

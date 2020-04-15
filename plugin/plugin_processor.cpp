@@ -1,5 +1,5 @@
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "plugin_processor.hpp"
+#include "plugin_editor.hpp"
 
 Juce6DemoProcessor::Juce6DemoProcessor()
     : AudioProcessor(BusesProperties()

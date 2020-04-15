@@ -1,5 +1,5 @@
-#include "PluginEditor.h"
-#include "PluginProcessor.h"
+#include "plugin_processor.hpp"
+#include "plugin_editor.hpp"
 
 Juce6DemoProcessorEditor::Juce6DemoProcessorEditor(Juce6DemoProcessor& p) : AudioProcessorEditor(&p), processorRef(p)
 {
