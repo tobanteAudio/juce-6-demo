@@ -10,7 +10,7 @@ script-anchors:
     - mkdir build
     - cd build
     - cmake --version
-    - cmake -GNinja -DCMAKE_BUILD_TYPE:STRING=Release ..
+    - cmake -GXcode -DCMAKE_BUILD_TYPE:STRING=Release ..
     - cmake --build . --config Release
     - ctest -C Release
 
@@ -22,7 +22,6 @@ matrix:
         homebrew:
           casks:
             - cmake
-            - ninja
       script: *script-macOS
 
 before_install:
