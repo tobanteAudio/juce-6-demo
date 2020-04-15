@@ -16,6 +16,7 @@ Juce6DemoProcessor::Juce6DemoProcessor()
                    "tobanteAudioJuce6Demo",
                    {std::make_unique<juce::AudioParameterFloat>("gain", "Gain", 0.0f, 2.0f, 1.0f)}}
 {
+    gain_ = parameters_.getRawParameterValue("gain");
 }
 
 Juce6DemoProcessor::~Juce6DemoProcessor() {}
@@ -75,7 +76,15 @@ void Juce6DemoProcessor::changeProgramName(int index, const juce::String& newNam
 
 void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    juce::ignoreUnused(sampleRate, samplesPerBlock);
+    jassert(getNumInputChannels() == getNumOutputChannels());
+
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.sampleRate       = sampleRate;
+    spec.numChannels      = getNumInputChannels();
+
+    outputGain_.prepare(spec);
+    outputGain_.setGainLinear(gain_->load());
 }
 
 void Juce6DemoProcessor::releaseResources() {}
@@ -104,15 +113,21 @@ bool Juce6DemoProcessor::isBusesLayoutSupported(const BusesLayout& layouts) cons
 void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ignoreUnused(midiMessages);
-
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    // clear unused channels
+    auto const totalNumInputChannels  = getTotalNumInputChannels();
+    auto const totalNumOutputChannels = getTotalNumOutputChannels();
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     {
         buffer.clear(i, 0, buffer.getNumSamples());
     }
+
+    // out gain
+    juce::dsp::AudioBlock<float> ioBuffer(buffer);
+    juce::dsp::ProcessContextReplacing<float> context(ioBuffer);
+    outputGain_.setGainLinear(gain_->load());
+    outputGain_.process(context);
 }
 
 bool Juce6DemoProcessor::hasEditor() const { return false; }
