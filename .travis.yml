@@ -12,7 +12,7 @@ script-anchors:
     - cmake --version
     - cmake -GXcode -DCMAKE_BUILD_TYPE:STRING=Release ..
     - cmake --build .
-    - ctest
+    - ctest -C Release
 
 matrix:
   include:
