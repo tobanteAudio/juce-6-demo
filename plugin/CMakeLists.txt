@@ -20,7 +20,8 @@ target_sources(Juce6DemoPlugin PRIVATE
         plugin_processor.cpp
         )
 
-target_include_directories(Juce6DemoPlugin PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(Juce6DemoPlugin PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/3rd_party/JUCE/modules)
+
 target_compile_definitions(Juce6DemoPlugin
         PUBLIC
         JUCE_WEB_BROWSER=0
