@@ -12,9 +12,15 @@ jobs:
       - run:
           name: Installing dependecies
           command: "apt-get update -qq && apt-get install -y -qq --no-install-recommends lcov libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libglu1-mesa-dev"
+      - run: "wget https://github.com/Kitware/CMake/releases/download/v3.17.1/cmake-3.17.1-Linux-x86_64.tar.gz"
+      - run: "tar xzf cmake-3.17.1-Linux-x86_64.tar.gz"
+      - run: "export PATH=$PWD/cmake-3.17.1-Linux-x86_64/bin:$PATH"
+      - run: "which cmake"
+      - run: "cmake --version"
       - run:
           name: Build
           command: "make coverage"
       - run:
           name: Collect coverage data
           command: "bash <(curl -s https://codecov.io/bash) -f build_coverage/cov.info"
+
