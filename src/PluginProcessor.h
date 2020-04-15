@@ -3,7 +3,7 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
-class Juce6DemoProcessor : public juce::AudioProcessor
+class Juce6DemoProcessor final : public juce::AudioProcessor
 {
 public:
     Juce6DemoProcessor();

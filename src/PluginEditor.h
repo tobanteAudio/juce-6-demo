@@ -2,7 +2,7 @@
 
 #include "PluginProcessor.h"
 
-class Juce6DemoProcessorEditor : public juce::AudioProcessorEditor
+class Juce6DemoProcessorEditor final : public juce::AudioProcessorEditor
 {
 public:
     explicit Juce6DemoProcessorEditor(Juce6DemoProcessor&);
