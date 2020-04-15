@@ -39,7 +39,15 @@ private:
     juce::UndoManager undoManager_;
     juce::AudioProcessorValueTreeState parameters_;
 
+    std::atomic<float>* roomSize_ = nullptr;
+    std::atomic<float>* damping_  = nullptr;
+    std::atomic<float>* dryLevel_ = nullptr;
+    std::atomic<float>* wetLevel_ = nullptr;
+    std::atomic<float>* width_    = nullptr;
+    juce::dsp::Reverb reverb_;
+
     std::atomic<float>* gain_ = nullptr;
     juce::dsp::Gain<float> outputGain_;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Juce6DemoProcessor)
 };

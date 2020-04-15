@@ -11,12 +11,26 @@ Juce6DemoProcessor::Juce6DemoProcessor()
 #endif
                          )
     , undoManager_ {}
-    , parameters_ {*this,
-                   &undoManager_,
-                   "tobanteAudioJuce6Demo",
-                   {std::make_unique<juce::AudioParameterFloat>("gain", "Gain", 0.0f, 2.0f, 1.0f)}}
+    , parameters_ {
+          *this,
+          &undoManager_,
+          "tobanteAudioJuce6Demo",
+          {
+              std::make_unique<juce::AudioParameterFloat>("room_size", "Room Size", 0.0f, 1.0f, 0.5f),
+              std::make_unique<juce::AudioParameterFloat>("damping", "Damping", 0.0f, 1.0f, 0.5f),
+              std::make_unique<juce::AudioParameterFloat>("dry_level", "Dry Mix", 0.0f, 1.0f, 0.4f),
+              std::make_unique<juce::AudioParameterFloat>("wet_level", "Wet Mix", 0.0f, 1.0f, 0.33f),
+              std::make_unique<juce::AudioParameterFloat>("width", "Width", 0.0f, 1.0f, 1.0f),
+              std::make_unique<juce::AudioParameterFloat>("gain", "Gain", 0.0f, 2.0f, 1.0f),
+          }  //
+      }
 {
-    gain_ = parameters_.getRawParameterValue("gain");
+    roomSize_ = parameters_.getRawParameterValue("room_size");
+    damping_  = parameters_.getRawParameterValue("damping");
+    dryLevel_ = parameters_.getRawParameterValue("dry_level");
+    wetLevel_ = parameters_.getRawParameterValue("wet_level");
+    width_    = parameters_.getRawParameterValue("width");
+    gain_     = parameters_.getRawParameterValue("gain");
 }
 
 Juce6DemoProcessor::~Juce6DemoProcessor() {}
@@ -83,6 +97,15 @@ void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     spec.sampleRate       = sampleRate;
     spec.numChannels      = getNumInputChannels();
 
+    reverb_.prepare(spec);
+    auto reverbParams     = juce::dsp::Reverb::Parameters {};
+    reverbParams.roomSize = roomSize_->load();
+    reverbParams.damping  = damping_->load();
+    reverbParams.width    = width_->load();
+    reverbParams.dryLevel = dryLevel_->load();
+    reverbParams.wetLevel = wetLevel_->load();
+    reverb_.setParameters(reverbParams);
+
     outputGain_.prepare(spec);
     outputGain_.setGainLinear(gain_->load());
 }
@@ -123,9 +146,21 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
         buffer.clear(i, 0, buffer.getNumSamples());
     }
 
-    // out gain
+    // dsp buffer
     juce::dsp::AudioBlock<float> ioBuffer(buffer);
     juce::dsp::ProcessContextReplacing<float> context(ioBuffer);
+
+    // reverb
+    auto reverbParams     = juce::dsp::Reverb::Parameters {};
+    reverbParams.roomSize = roomSize_->load();
+    reverbParams.damping  = damping_->load();
+    reverbParams.width    = width_->load();
+    reverbParams.dryLevel = dryLevel_->load();
+    reverbParams.wetLevel = wetLevel_->load();
+    reverb_.setParameters(reverbParams);
+    reverb_.process(context);
+
+    // out gain
     outputGain_.setGainLinear(gain_->load());
     outputGain_.process(context);
 }
