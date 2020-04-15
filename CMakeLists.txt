@@ -98,6 +98,10 @@ target_compile_definitions(CMakePluginExample
 # linked automatically. If we'd generated a binary data target above, we would need to link to it
 # here too. This is a standard CMake command.
 
+# juce_add_modules(${CMAKE_SOURCE_DIR}/3rd_party/JUCE/modules/juce_dsp)
+
 target_link_libraries(CMakePluginExample PRIVATE
     # AudioPluginData          
-    juce::juce_audio_utils)
+    juce::juce_audio_utils
+    juce::juce_dsp
+)
