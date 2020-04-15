@@ -1,0 +1,28 @@
+branches:
+  only:
+    - master
+
+language: cpp
+
+script-anchors:
+  - &script-macOS
+    - cd $TRAVIS_BUILD_DIR
+    - mkdir build
+    - cd build
+    - cmake --version
+    - cmake -GXcode -DCMAKE_BUILD_TYPE:STRING=Release ..
+    - cmake --build .
+    - ctest
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode11.2
+      addons:
+        homebrew:
+          casks:
+            - cmake
+      script: *script-macOS
+
+before_install:
+  - eval "${MATRIX_EVAL}"
