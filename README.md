@@ -1,6 +1,6 @@
 # JUCE 6 Beta - Test Project
 
-Simple project testing the new beta branch of JUCE version 6.
+Simple project testing the new beta branch of `JUCE` version 6. Reverb plugin based on the `JUCE` dsp classes. Links to unit tests written with `Catch2`. Tested on Windows, macOS & Linux.
 
 ## Quick Start
 
@@ -54,3 +54,9 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 #### Linux Issues
 
 - **None**
+
+### General Issues
+
+- Linking test target to shared code does **not**:
+  - set juce module include path
+  - set NDEBUG or DEBUG (macOS)
