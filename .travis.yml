@@ -11,7 +11,7 @@ script-anchors:
     - cd build
     - cmake --version
     - cmake -GXcode -DCMAKE_BUILD_TYPE:STRING=Release ..
-    - cmake --build .
+    - cmake --build . --config Release
     - ctest -C Release
 
 matrix:
