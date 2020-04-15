@@ -18,7 +18,7 @@ Juce6DemoProcessor::Juce6DemoProcessor()
 {
 }
 
-Juce6DemoProcessor::~Juce6DemoProcessor() { }
+Juce6DemoProcessor::~Juce6DemoProcessor() {}
 
 const juce::String Juce6DemoProcessor::getName() const { return JucePlugin_Name; }
 
@@ -78,7 +78,7 @@ void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     juce::ignoreUnused(sampleRate, samplesPerBlock);
 }
 
-void Juce6DemoProcessor::releaseResources() { }
+void Juce6DemoProcessor::releaseResources() {}
 
 bool Juce6DemoProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
@@ -109,10 +109,13 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i) buffer.clear(i, 0, buffer.getNumSamples());
+    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    {
+        buffer.clear(i, 0, buffer.getNumSamples());
+    }
 }
 
-bool Juce6DemoProcessor::hasEditor() const { return true; }
+bool Juce6DemoProcessor::hasEditor() const { return false; }
 
 juce::AudioProcessorEditor* Juce6DemoProcessor::createEditor() { return new Juce6DemoProcessorEditor(*this); }
 
