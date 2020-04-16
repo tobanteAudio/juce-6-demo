@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.15)
 
 project(tobanteAudioJuce6Demo VERSION 0.1.0)
 
-# Only do these if this is the main project, and not if it is included through add_subdirectory
+# Only do these if this is the main project,
+# and not if it is included through add_subdirectory.
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # Let's nicely support folders in IDE's
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -25,10 +26,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         if(COMPILER_OPT_ARCH_AVX2_SUPPORTED)
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:AVX2")
         endif()
-        CHECK_CXX_COMPILER_FLAG("/MP" COMPILER_OPT_MP_BUILD_SUPPORTED)
-        if(COMPILER_OPT_MP_BUILD_SUPPORTED)
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-        endif()
     endif()
 
     if(NOT APPLE)
@@ -41,18 +38,15 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     endif()
 endif()
 
-
 option(TOBANTEAUDIO_BUILD_TESTS          "Build the unit tests with Catch2"  ON)
 option(TOBANTEAUDIO_BUILD_COVERAGE       "Build with coverage enabled"       OFF)
-option(TOBANTEAUDIO_CLANG_TIDY           "Run clang-tidy with the compiler." OFF)
-option(TOBANTEAUDIO_CLANG_TIDY_FIX       "Run & auto fix clang-tidy with the compiler." OFF)
 
-# Cmake setup
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CodeCoverage)
 include(CompilerOptions)
 include(CompilerWarnings)
 
+# JUCE
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 # juce_set_vst2_sdk_path(...)
 # juce_set_aax_sdk_path(...)
@@ -60,17 +54,18 @@ add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 # Company settings
 set_directory_properties(PROPERTIES JUCE_COMPANY_COPYRIGHT "Copyright @ tobanteAudio")
 set_directory_properties(PROPERTIES JUCE_COMPANY_NAME "tobanteAudio")
-set_directory_properties(PROPERTIES JUCE_COMPANY_WEBSITE "https://github.com/tobanteAudio")
+set_directory_properties(PROPERTIES JUCE_COMPANY_WEBSITE "https://github.com/tobanteAudio/juce-6-demo")
 set_directory_properties(PROPERTIES JUCE_COMPANY_EMAIL "tobanteAudio@gmail.com")
 
 # Plugin
 add_subdirectory(plugin)
 
-# Testing
-list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/contrib")
-enable_testing()
-add_subdirectory(3rd_party/Catch2 ${CMAKE_CURRENT_BINARY_DIR}/3rd_party/Catch2 EXCLUDE_FROM_ALL)
-include(CTest)
-include(Catch)
-
-add_subdirectory(tests)
+# Tests
+if(TOBANTEAUDIO_BUILD_TESTS)
+    list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/contrib")
+    enable_testing()
+    add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
+    include(CTest)
+    include(Catch)
+    add_subdirectory(tests)
+endif()

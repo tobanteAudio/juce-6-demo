@@ -1,6 +1,5 @@
 project(plugin)
 
-
 juce_add_plugin(Juce6DemoPlugin
         PRODUCT_NAME "Juce6 Demo"               # The name of the final executable, which can differ from the target name
         VERSION ${CMAKE_PROJECT_VERSION}        # Version
