@@ -14,4 +14,4 @@ void Juce6DemoProcessorEditor::paint(juce::Graphics& g)
     g.fillAll(bgColor);
 }
 
-void Juce6DemoProcessorEditor::resized() { }
+void Juce6DemoProcessorEditor::resized() {}
