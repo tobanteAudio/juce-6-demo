@@ -23,7 +23,7 @@ private:
     Juce6DemoProcessor& processorRef;
 
     foleys::LevelMeterLookAndFeel lnf_;
-    foleys::LevelMeter meter_ { foleys::LevelMeter::Minimal }; // See foleys::LevelMeter::MeterFlags for options
+    foleys::LevelMeter meter_ {foleys::LevelMeter::Minimal};  // See foleys::LevelMeter::MeterFlags for options
 
     juce::Label roomSizeLabel_ {"room_size", "Room Size"};
     juce::Slider roomSize_ {juce::Slider::LinearHorizontal, juce::Slider::TextBoxRight};
