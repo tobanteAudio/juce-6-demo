@@ -20,10 +20,15 @@ juce_add_plugin(Juce6DemoPlugin
         PLUGIN_CODE J6dm                                        # A unique four-character plugin id with at least one upper-case character
 )
 
-target_sources(Juce6DemoPlugin PRIVATE
-        plugin_editor.cpp
+set(Juce6DemoPlugin_SOURCES 
+        plugin_editor.hpp 
+        plugin_editor.cpp 
+        plugin_processor.hpp
         plugin_processor.cpp
-        )
+)
+
+target_sources(Juce6DemoPlugin PRIVATE ${Juce6DemoPlugin_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${Juce6DemoPlugin_SOURCES})
 
 target_include_directories(Juce6DemoPlugin PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(Juce6DemoPlugin PUBLIC ${CMAKE_SOURCE_DIR}/3rd_party)
