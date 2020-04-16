@@ -3,6 +3,9 @@ add_library(tobanteAudio::CompilerOptions ALIAS compiler_options)
 
 # Language standard
 target_compile_features(compiler_options INTERFACE cxx_std_17)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  target_compile_options(compiler_options INTERFACE "/permissive-")
+endif()
 
 # Sanitizers
 set(SANITIZERS "")
