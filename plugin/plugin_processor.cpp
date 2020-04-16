@@ -130,6 +130,9 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     // out gain
     outputGain_.setGainLinear(gain_->load());
     outputGain_.process(context);
+
+    // meter
+    meterSource_.measureBlock(buffer);
 }
 
 bool Juce6DemoProcessor::hasEditor() const { return true; }

@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <ff_meters/ff_meters.h>
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
@@ -42,6 +43,8 @@ public:
 
     auto GetAPVTS() -> juce::AudioProcessorValueTreeState& { return parameters_; }
 
+    auto GetMeterSource() -> FFAU::LevelMeterSource* { return &meterSource_; }
+
 private:
     juce::UndoManager undoManager_;
     juce::AudioProcessorValueTreeState parameters_;
@@ -55,6 +58,8 @@ private:
 
     std::atomic<float>* gain_ = nullptr;
     juce::dsp::Gain<float> outputGain_;
+
+    FFAU::LevelMeterSource meterSource_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Juce6DemoProcessor)
 };

@@ -30,6 +30,7 @@ target_compile_definitions(Juce6DemoPlugin
         )
 
 # juce_add_binary_data(AudioPluginData SOURCES ...)
+juce_add_module(${CMAKE_SOURCE_DIR}/3rd_party/ff_meters)
 target_link_libraries(Juce6DemoPlugin PRIVATE
         tobanteAudio::CompilerWarnings
         tobanteAudio::CompilerOptions
@@ -37,4 +38,5 @@ target_link_libraries(Juce6DemoPlugin PRIVATE
         # AudioPluginData
         juce::juce_audio_utils
         juce::juce_dsp
+        ff_meters
         )

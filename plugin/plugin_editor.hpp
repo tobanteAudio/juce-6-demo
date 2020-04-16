@@ -11,7 +11,7 @@ class Juce6DemoProcessorEditor final : public juce::AudioProcessorEditor
 {
 public:
     explicit Juce6DemoProcessorEditor(Juce6DemoProcessor&);
-    ~Juce6DemoProcessorEditor() override = default;
+    ~Juce6DemoProcessorEditor() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
@@ -21,6 +21,9 @@ private:
 
 private:
     Juce6DemoProcessor& processorRef;
+
+    std::unique_ptr<FFAU::LevelMeter> meter_;
+    std::unique_ptr<FFAU::LevelMeterLookAndFeel> lnf_;
 
     juce::Label roomSizeLabel_ {"room_size", "Room Size"};
     juce::Slider roomSize_ {juce::Slider::LinearHorizontal, juce::Slider::TextBoxRight};
