@@ -34,20 +34,18 @@ Juce6DemoProcessorEditor::Juce6DemoProcessorEditor(Juce6DemoProcessor& p) : Audi
     addAndMakeVisible(gainLabel_);
     addAndMakeVisible(gain_);
 
-    lnf_ = std::make_unique<FFAU::LevelMeterLookAndFeel>();
-    lnf_->setColour(FFAU::LevelMeter::lmMeterGradientLowColour, juce::Colours::green);
+    lnf_.setColour(FFAU::LevelMeter::lmMeterGradientLowColour, juce::Colours::green);
 
-    meter_ = std::make_unique<FFAU::LevelMeter>();
-    meter_->setLookAndFeel(lnf_.get());
-    meter_->setMeterSource(processorRef.GetMeterSource());
-    addAndMakeVisible(meter_.get());
+    meter_.setLookAndFeel(&lnf_);
+    meter_.setMeterSource(processorRef.GetMeterSource());
+    addAndMakeVisible(meter_);
 
     setSize(400, 400);
     setResizable(true, true);
     setResizeLimits(400, 400, 8000, 8000);
 }
 
-Juce6DemoProcessorEditor::~Juce6DemoProcessorEditor() { meter_->setLookAndFeel(nullptr); }
+Juce6DemoProcessorEditor::~Juce6DemoProcessorEditor() { meter_.setLookAndFeel(nullptr); }
 void Juce6DemoProcessorEditor::paint(juce::Graphics& g)
 {
     auto const bgColor = getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId);
@@ -61,7 +59,7 @@ void Juce6DemoProcessorEditor::resized()
     auto const height     = area.getHeight() / 6;
     auto const labelPerc  = 4;
 
-    meter_->setBounds(area.removeFromRight(meterWidth));
+    meter_.setBounds(area.removeFromRight(meterWidth));
 
     {
         auto section = area.removeFromTop(height);

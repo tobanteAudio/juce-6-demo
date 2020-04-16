@@ -59,7 +59,7 @@ private:
     std::atomic<float>* gain_ = nullptr;
     juce::dsp::Gain<float> outputGain_;
 
-    FFAU::LevelMeterSource meterSource_;
+    foleys::LevelMeterSource meterSource_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Juce6DemoProcessor)
 };

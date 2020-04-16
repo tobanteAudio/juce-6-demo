@@ -22,8 +22,8 @@ private:
 private:
     Juce6DemoProcessor& processorRef;
 
-    std::unique_ptr<FFAU::LevelMeter> meter_;
-    std::unique_ptr<FFAU::LevelMeterLookAndFeel> lnf_;
+    foleys::LevelMeterLookAndFeel lnf_;
+    foleys::LevelMeter meter_ { foleys::LevelMeter::Minimal }; // See foleys::LevelMeter::MeterFlags for options
 
     juce::Label roomSizeLabel_ {"room_size", "Room Size"};
     juce::Slider roomSize_ {juce::Slider::LinearHorizontal, juce::Slider::TextBoxRight};
