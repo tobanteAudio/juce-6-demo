@@ -78,10 +78,7 @@ TEST_CASE("processor: ZeroGainMono", "[demo][processor]")
     // fill buffer with all 1.0
     for (auto i = 0; i < numChannels; i++)
     {
-        for (auto j = 0; j < numSamples; j++)
-        {
-            buffer.setSample(i, j, 1.0f);
-        }
+        for (auto j = 0; j < numSamples; j++) { buffer.setSample(i, j, 1.0f); }
     }
 
     auto processor = Juce6DemoProcessor {};
@@ -111,10 +108,7 @@ TEST_CASE("processor: ZeroGainStereo", "[demo][processor]")
     // fill buffer with all 1.0
     for (auto i = 0; i < numChannels; i++)
     {
-        for (auto j = 0; j < numSamples; j++)
-        {
-            buffer.setSample(i, j, 1.0f);
-        }
+        for (auto j = 0; j < numSamples; j++) { buffer.setSample(i, j, 1.0f); }
     }
 
     auto processor = Juce6DemoProcessor {};
