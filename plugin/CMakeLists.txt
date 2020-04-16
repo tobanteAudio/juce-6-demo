@@ -9,7 +9,7 @@ juce_add_plugin(Juce6DemoPlugin
         NEEDS_MIDI_OUTPUT FALSE                 # Does the plugin need midi output?
         IS_MIDI_EFFECT FALSE                    # Is this plugin a MIDI effect?
         EDITOR_WANTS_KEYBOARD_FOCUS FALSE       # Does the editor need keyboard focus?
-        COPY_PLUGIN_AFTER_BUILD FALSE           # Should the plugin be installed to a default location after building?
+        COPY_PLUGIN_AFTER_BUILD TRUE           # Should the plugin be installed to a default location after building?
         PLUGIN_MANUFACTURER_CODE toAu           # A four-character manufacturer id with at least one upper-case character
         PLUGIN_CODE J6dm                        # A unique four-character plugin id with at least one upper-case character
         )
