@@ -74,10 +74,40 @@ TEST_CASE("processor: ValueTree", "[demo][processor]")
     REQUIRE(&vts.processor == &processor);
 }
 
-TEST_CASE("processor: ZeroGain", "[demo][processor]")
+TEST_CASE("processor: ZeroGainMono", "[demo][processor]")
 {
-    auto const numChannels = 2;
-    auto const numSamples  = 4;
+    constexpr auto numChannels = 1;
+    constexpr auto numSamples  = 128;
+
+    auto midi   = juce::MidiBuffer {};
+    auto buffer = juce::AudioBuffer<float> {numChannels, numSamples};
+
+    // fill buffer with all 1.0
+    for (auto i = 0; i < numChannels; i++)
+    {
+        for (auto j = 0; j < numSamples; j++) { buffer.setSample(i, j, 1.0f); }
+    }
+
+    auto processor = Juce6DemoProcessor {};
+    processor.GetAPVTS().getRawParameterValue("gain")->store(0.0f);
+    processor.prepareToPlay(44'100.0, numSamples);
+    processor.processBlock(buffer, midi);
+
+    // buffer should be silent
+    for (auto i = 0; i < numChannels; i++)
+    {
+        for (auto j = 0; j < numSamples; j++)
+        {
+            auto const sample = buffer.getSample(i, j);
+            REQUIRE(sample == 0.0f);
+        }
+    }
+}
+
+TEST_CASE("processor: ZeroGainStereo", "[demo][processor]")
+{
+    constexpr auto numChannels = 2;
+    constexpr auto numSamples  = 64;
 
     auto midi   = juce::MidiBuffer {};
     auto buffer = juce::AudioBuffer<float> {numChannels, numSamples};
