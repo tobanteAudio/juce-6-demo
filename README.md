@@ -25,6 +25,8 @@
 ## Features
 
 - CMake build
+- External juce modules
+  - [ff_meters fork](https://github.com/tobanteAudio/ff_meters)
 - Catch2 unit tests
 - Sanitizers
 - Code coverage (lcov)
