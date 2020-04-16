@@ -6,6 +6,7 @@
 
 - [JUCE 6 Beta - Test Project](#juce-6-beta---test-project)
   - [Features](#features)
+    - [ToDo](#todo)
   - [Quick Start](#quick-start)
   - [Tested On](#tested-on)
     - [Windows](#windows)
@@ -15,7 +16,6 @@
     - [Linux](#linux)
       - [Linux Issues](#linux-issues)
     - [General Issues](#general-issues)
-  - [ToDo](#todo)
   - [Suggestions](#suggestions)
     - [Split shared code cmake target](#split-shared-code-cmake-target)
       - [Example](#example)
@@ -29,6 +29,11 @@
 - Code coverage (lcov)
 - CI (travis, appveyor & circleci)
 - clang-format
+
+### ToDo
+
+- clang-tidy
+- automatic packaging & signing
 
 ## Quick Start
 
@@ -93,16 +98,11 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
   - set juce module include path
   - set NDEBUG or DEBUG (macOS)
 
-## ToDo
-
-- clang-tidy
-- automatic packaging & signing
-
 ## Suggestions
 
 ### Split shared code cmake target
 
-Currently `JUCE` library code & user code is build in one CMake library target.
+Currently `JUCE` library code & user code are build in one CMake library target.
 This becomes a problem using certain CMake features.
 
 #### Example
