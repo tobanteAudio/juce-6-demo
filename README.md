@@ -8,6 +8,7 @@
   - [Features](#features)
     - [ToDo](#todo)
   - [Quick Start](#quick-start)
+      - [Tools](#tools)
   - [Tested On](#tested-on)
     - [Windows](#windows)
       - [Windows Issues](#windows-issues)
@@ -52,6 +53,14 @@ cmake -S. -Bbuild
 cmake --build build --config Release
 cd build
 ctest -C Release
+```
+
+### Tools
+
+```sh
+make sanitize           # sanitizers: asan, uban
+make coverage report    # files: build_coverage/lcov/index.html
+make format             # run clang-format
 ```
 
 ## Tested On
