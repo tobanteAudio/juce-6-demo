@@ -11,5 +11,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         tobanteAudio::CodeCoverage
         Catch2::Catch2
         )
-target_compile_definitions(${PROJECT_NAME} PRIVATE NDEBUG=1)
+
+if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE _DEBUG=1)
+else()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE NDEBUG=1)
+endif (CMAKE_BUILD_TYPE EQUAL "DEBUG")
+
 catch_discover_tests(${PROJECT_NAME})
