@@ -1,22 +1,25 @@
 # JUCE 6 Beta - Test Project
 
-|                                                                    License                                                                     |        Linux       |                                              macOS                                                             | Windows |                                                                  Coverage                                                                  |
-| :--------------------------------------------------------------------------------------------------------------------------------------------: | :---:|:---------------------------------------------------------------------------------------------------------------------------------: | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------: |
-| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/tobanteAudio/juce-6-demo/blob/master/LICENSE) |[![CircleCi](https://circleci.com/gh/tobanteAudio/juce-6-demo.svg?style=svg)](https://circleci.com/gh/tobanteAudio/juce-6-demo)| [![Build Status](https://travis-ci.org/tobanteAudio/juce-6-demo.svg?branch=master)](https://travis-ci.org/tobanteAudio/juce-6-demo) |  [![Build status](https://ci.appveyor.com/api/projects/status/oiu6ftj6oneneoro/branch/master?svg=true)](https://ci.appveyor.com/project/tobiashienzsch/juce-6-demo/branch/master)       | [![codecov](https://codecov.io/gh/tobanteAudio/juce-6-demo/branch/master/graph/badge.svg)](https://codecov.io/gh/tobanteAudio/juce-6-demo) |
+|                                                                    License                                                                     |                                                              Linux                                                              |                                                                macOS                                                                |                                                                                     Windows                                                                                      |                                                                  Coverage                                                                  |
+| :--------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/tobanteAudio/juce-6-demo/blob/master/LICENSE) | [![CircleCi](https://circleci.com/gh/tobanteAudio/juce-6-demo.svg?style=svg)](https://circleci.com/gh/tobanteAudio/juce-6-demo) | [![Build Status](https://travis-ci.org/tobanteAudio/juce-6-demo.svg?branch=master)](https://travis-ci.org/tobanteAudio/juce-6-demo) | [![Build status](https://ci.appveyor.com/api/projects/status/oiu6ftj6oneneoro/branch/master?svg=true)](https://ci.appveyor.com/project/tobiashienzsch/juce-6-demo/branch/master) | [![codecov](https://codecov.io/gh/tobanteAudio/juce-6-demo/branch/master/graph/badge.svg)](https://codecov.io/gh/tobanteAudio/juce-6-demo) |
 
 - [JUCE 6 Beta - Test Project](#juce-6-beta---test-project)
-  * [Features](#features)
-  * [Quick Start](#quick-start)
-  * [Tested On](#tested-on)
-    + [Windows](#windows)
+  - [Features](#features)
+  - [Quick Start](#quick-start)
+  - [Tested On](#tested-on)
+    - [Windows](#windows)
       - [Windows Issues](#windows-issues)
-    + [Apple](#apple)
+    - [Apple](#apple)
       - [Apple Issues](#apple-issues)
-    + [Linux](#linux)
+    - [Linux](#linux)
       - [Linux Issues](#linux-issues)
-    + [General Issues](#general-issues)
-  * [ToDo](#todo)
-
+    - [General Issues](#general-issues)
+  - [ToDo](#todo)
+  - [Suggestions](#suggestions)
+    - [Split shared code cmake target](#split-shared-code-cmake-target)
+      - [Example](#example)
+      - [Fix](#fix)
 
 ## Features
 
@@ -42,7 +45,7 @@ or:
 ```sh
 cmake -S. -Bbuild
 cmake --build build --config Release
-cd build 
+cd build
 ctest -C Release
 ```
 
@@ -94,3 +97,30 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 
 - clang-tidy
 - automatic packaging & signing
+
+## Suggestions
+
+### Split shared code cmake target
+
+Currently `JUCE` library code & user code is build in one CMake library target.
+This becomes a problem using certain CMake features.
+
+#### Example
+
+Adding an interface target for compiler warnings will enable those warnings
+on library code too. This makes the build output very noisy.
+
+```cmake
+add_library(compiler_warnings INTERFACE)
+add_library(tobanteAudio::CompilerWarnings ALIAS compiler_warnings)
+target_compile_options(compiler_warnings INTERFACE -Wall -Wextra -Wpedantic)
+juce_add_plugin(Juce6DemoPlugin ...)
+target_link_libraries(Juce6DemoPlugin PRIVATE tobanteAudio::CompilerOptions ...)
+```
+
+#### Fix
+
+Split into 2 CMake targets:
+
+- `JUCE` library code
+- User shared code
