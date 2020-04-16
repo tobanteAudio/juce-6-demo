@@ -16,7 +16,7 @@ TEST_CASE("processor: Name", "[demo][processor]")
 TEST_CASE("processor: HasEditor", "[demo][processor]")
 {
     auto processor = Juce6DemoProcessor {};
-    REQUIRE(processor.hasEditor() == false);
+    REQUIRE(processor.hasEditor() == true);
 }
 
 TEST_CASE("processor: AcceptsMidi", "[demo][processor]")

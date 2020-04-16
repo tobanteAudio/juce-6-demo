@@ -134,7 +134,7 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     outputGain_.process(context);
 }
 
-bool Juce6DemoProcessor::hasEditor() const { return false; }
+bool Juce6DemoProcessor::hasEditor() const { return true; }
 
 juce::AudioProcessorEditor* Juce6DemoProcessor::createEditor() { return new Juce6DemoProcessorEditor(*this); }
 
