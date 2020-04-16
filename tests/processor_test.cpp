@@ -67,13 +67,6 @@ TEST_CASE("processor: BusesLayoutSupportInvalid", "[demo][processor]")
     REQUIRE(processor.isBusesLayoutSupported(layout) == false);
 }
 
-TEST_CASE("processor: ValueTree", "[demo][processor]")
-{
-    auto processor = Juce6DemoProcessor {};
-    auto& vts      = processor.GetAPVTS();
-    REQUIRE(&vts.processor == &processor);
-}
-
 TEST_CASE("processor: ZeroGainMono", "[demo][processor]")
 {
     constexpr auto numChannels = 1;
@@ -139,3 +132,36 @@ TEST_CASE("processor: ZeroGainStereo", "[demo][processor]")
         }
     }
 }
+
+TEST_CASE("processor: ValueTreeDefaultState", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    auto& vts      = processor.GetAPVTS();
+    REQUIRE(&vts.processor == &processor);
+    REQUIRE(vts.getRawParameterValue("gain")->load() == 1.0f);
+    REQUIRE(vts.getRawParameterValue("width")->load() == 1.0f);
+    REQUIRE(vts.getRawParameterValue("room_size")->load() == 0.5f);
+    REQUIRE(vts.getRawParameterValue("damping")->load() == 0.5f);
+}
+
+// TEST_CASE("processor: ValueTreeSetGetState", "[demo][processor]")
+// {
+//     auto processor = Juce6DemoProcessor {};
+//     auto& vts      = processor.GetAPVTS();
+//     vts.getRawParameterValue("gain")->store(0.0f);
+//     vts.getRawParameterValue("width")->store(0.0f);
+//     vts.getRawParameterValue("room_size")->store(0.0f);
+//     vts.getRawParameterValue("damping")->store(0.0f);
+
+//     juce::MemoryBlock memory {0, true};
+//     processor.getStateInformation(memory);
+
+//     auto newProcessor = Juce6DemoProcessor {};
+//     newProcessor.setStateInformation(memory.getData(), memory.getSize());
+
+//     auto& newVts = newProcessor.GetAPVTS();
+//     REQUIRE(newVts.getRawParameterValue("gain")->load() == 0.0f);
+//     REQUIRE(newVts.getRawParameterValue("width")->load() == 0.0f);
+//     REQUIRE(newVts.getRawParameterValue("room_size")->load() == 0.0f);
+//     REQUIRE(newVts.getRawParameterValue("damping")->load() == 0.0f);
+// }
