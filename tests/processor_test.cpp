@@ -23,7 +23,7 @@ TEST_CASE("processor: CurrentProgram", "[demo][processor]")
 {
     auto processor = Juce6DemoProcessor {};
     REQUIRE(processor.getCurrentProgram() == 0);
-    REQUIRE(processor.getProgramName(1) == juce::String{});
+    REQUIRE(processor.getProgramName(1) == juce::String {});
 }
 
 TEST_CASE("processor: NumPrograms", "[demo][processor]")
@@ -38,7 +38,7 @@ TEST_CASE("processor: ChangeProgram", "[demo][processor]")
     REQUIRE(processor.getNumPrograms() == 1);
     REQUIRE(processor.getCurrentProgram() == 0);
 
-    processor.changeProgramName(1,"");
+    processor.changeProgramName(1, "");
     processor.setCurrentProgram(2);
 
     // nothing should have changed. programs are not used.
@@ -190,7 +190,7 @@ TEST_CASE("processor: ValueTreeSetGetState", "[demo][processor]")
     REQUIRE(vts.getRawParameterValue("damping")->load() == 0.0f);
 }
 
-//TEST_CASE("processor: ValueTreeRecall", "[demo][processor]")
+// TEST_CASE("processor: ValueTreeRecall", "[demo][processor]")
 //{
 //    auto processor = Juce6DemoProcessor {};
 //    auto& vts      = processor.GetAPVTS();

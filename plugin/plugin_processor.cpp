@@ -1,3 +1,8 @@
+/**
+ * @file plugin_processor.cpp
+ * @copyright Copyright 2020 tobanteAudio.
+ */
+
 #include "plugin_processor.hpp"
 #include "plugin_editor.hpp"
 

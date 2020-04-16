@@ -1,3 +1,8 @@
+/**
+ * @file plugin_processor.hpp
+ * @copyright Copyright 2020 tobanteAudio.
+ */
+
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
