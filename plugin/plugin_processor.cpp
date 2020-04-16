@@ -86,6 +86,10 @@ void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     outputGain_.prepare(spec);
     outputGain_.setGainLinear(gain_->load());
+
+    auto const msec = 25.0f;
+    auto const rmsWindow = msec * 0.001f * sampleRate / samplesPerBlock;
+    meterSource_.resize(getTotalNumInputChannels(),rmsWindow);
 }
 
 void Juce6DemoProcessor::releaseResources() { }
