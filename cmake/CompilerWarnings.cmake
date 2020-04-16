@@ -40,4 +40,14 @@ else()
             -Wno-gnu-zero-variadic-macro-arguments
             >
     )
+
+    # APPLE CLANG
+    target_compile_options(
+            compiler_warnings
+            INTERFACE
+            $<$<CXX_COMPILER_ID:AppleClang>:
+            -Wshadow-all
+            -Wno-gnu-zero-variadic-macro-arguments
+            >
+    )
 endif()
