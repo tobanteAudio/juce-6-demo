@@ -19,6 +19,33 @@ TEST_CASE("processor: HasEditor", "[demo][processor]")
     REQUIRE(processor.hasEditor() == true);
 }
 
+TEST_CASE("processor: CurrentProgram", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    REQUIRE(processor.getCurrentProgram() == 0);
+    REQUIRE(processor.getProgramName(1) == juce::String{});
+}
+
+TEST_CASE("processor: NumPrograms", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    REQUIRE(processor.getNumPrograms() == 1);
+}
+
+TEST_CASE("processor: ChangeProgram", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    REQUIRE(processor.getNumPrograms() == 1);
+    REQUIRE(processor.getCurrentProgram() == 0);
+
+    processor.changeProgramName(1,"");
+    processor.setCurrentProgram(2);
+
+    // nothing should have changed. programs are not used.
+    REQUIRE(processor.getNumPrograms() == 1);
+    REQUIRE(processor.getCurrentProgram() == 0);
+}
+
 TEST_CASE("processor: AcceptsMidi", "[demo][processor]")
 {
     auto processor = Juce6DemoProcessor {};
@@ -35,6 +62,12 @@ TEST_CASE("processor: IsMidiEffect", "[demo][processor]")
 {
     auto processor = Juce6DemoProcessor {};
     REQUIRE(processor.isMidiEffect() == false);
+}
+
+TEST_CASE("processor: TailLength", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    REQUIRE(processor.getTailLengthSeconds() == 0.0);
 }
 
 TEST_CASE("processor: BusesLayoutSupportMono", "[demo][processor]")
@@ -95,6 +128,8 @@ TEST_CASE("processor: ZeroGainMono", "[demo][processor]")
             REQUIRE(sample == 0.0f);
         }
     }
+
+    processor.releaseResources();
 }
 
 TEST_CASE("processor: ZeroGainStereo", "[demo][processor]")
@@ -125,6 +160,8 @@ TEST_CASE("processor: ZeroGainStereo", "[demo][processor]")
             REQUIRE(sample == 0.0f);
         }
     }
+
+    processor.releaseResources();
 }
 
 TEST_CASE("processor: ValueTreeDefaultState", "[demo][processor]")
@@ -138,24 +175,39 @@ TEST_CASE("processor: ValueTreeDefaultState", "[demo][processor]")
     REQUIRE(vts.getRawParameterValue("damping")->load() == 0.5f);
 }
 
-// TEST_CASE("processor: ValueTreeSetGetState", "[demo][processor]")
-// {
-//     auto processor = Juce6DemoProcessor {};
-//     auto& vts      = processor.GetAPVTS();
-//     vts.getRawParameterValue("gain")->store(0.0f);
-//     vts.getRawParameterValue("width")->store(0.0f);
-//     vts.getRawParameterValue("room_size")->store(0.0f);
-//     vts.getRawParameterValue("damping")->store(0.0f);
+TEST_CASE("processor: ValueTreeSetGetState", "[demo][processor]")
+{
+    auto processor = Juce6DemoProcessor {};
+    auto& vts      = processor.GetAPVTS();
+    vts.getRawParameterValue("gain")->store(0.0f);
+    vts.getRawParameterValue("width")->store(0.0f);
+    vts.getRawParameterValue("room_size")->store(0.0f);
+    vts.getRawParameterValue("damping")->store(0.0f);
 
-//     juce::MemoryBlock memory {0, true};
-//     processor.getStateInformation(memory);
+    REQUIRE(vts.getRawParameterValue("gain")->load() == 0.0f);
+    REQUIRE(vts.getRawParameterValue("width")->load() == 0.0f);
+    REQUIRE(vts.getRawParameterValue("room_size")->load() == 0.0f);
+    REQUIRE(vts.getRawParameterValue("damping")->load() == 0.0f);
+}
 
-//     auto newProcessor = Juce6DemoProcessor {};
-//     newProcessor.setStateInformation(memory.getData(), memory.getSize());
-
-//     auto& newVts = newProcessor.GetAPVTS();
-//     REQUIRE(newVts.getRawParameterValue("gain")->load() == 0.0f);
-//     REQUIRE(newVts.getRawParameterValue("width")->load() == 0.0f);
-//     REQUIRE(newVts.getRawParameterValue("room_size")->load() == 0.0f);
-//     REQUIRE(newVts.getRawParameterValue("damping")->load() == 0.0f);
-// }
+//TEST_CASE("processor: ValueTreeRecall", "[demo][processor]")
+//{
+//    auto processor = Juce6DemoProcessor {};
+//    auto& vts      = processor.GetAPVTS();
+//    vts.getRawParameterValue("gain")->store(0.0f);
+//    vts.getRawParameterValue("width")->store(0.0f);
+//    vts.getRawParameterValue("room_size")->store(0.0f);
+//    vts.getRawParameterValue("damping")->store(0.0f);
+//
+//    juce::MemoryBlock memory {0, true};
+//    processor.getStateInformation(memory);
+//
+//    auto newProcessor = Juce6DemoProcessor {};
+//    newProcessor.setStateInformation(memory.getData(), memory.getSize());
+//
+//    auto& newVts = newProcessor.GetAPVTS();
+//    REQUIRE(newVts.getRawParameterValue("gain")->load() == 0.0f);
+//    REQUIRE(newVts.getRawParameterValue("width")->load() == 0.0f);
+//    REQUIRE(newVts.getRawParameterValue("room_size")->load() == 0.0f);
+//    REQUIRE(newVts.getRawParameterValue("damping")->load() == 0.0f);
+//}
