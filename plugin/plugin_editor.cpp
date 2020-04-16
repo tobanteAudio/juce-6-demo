@@ -8,8 +8,6 @@ Juce6DemoProcessorEditor::Juce6DemoProcessorEditor(Juce6DemoProcessor& p) : Audi
     setSize(400, 300);
 }
 
-Juce6DemoProcessorEditor::~Juce6DemoProcessorEditor() { }
-
 void Juce6DemoProcessorEditor::paint(juce::Graphics& g)
 {
     auto const bgColor = getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId);

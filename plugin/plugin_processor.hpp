@@ -7,7 +7,7 @@ class Juce6DemoProcessor final : public juce::AudioProcessor
 {
 public:
     Juce6DemoProcessor();
-    ~Juce6DemoProcessor() override;
+    ~Juce6DemoProcessor() override = default;
 
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;

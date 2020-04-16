@@ -4,8 +4,7 @@
 Juce6DemoProcessor::Juce6DemoProcessor()
     : AudioProcessor(BusesProperties()
                          .withInput("Input", juce::AudioChannelSet::stereo(), true)
-                         .withOutput("Output", juce::AudioChannelSet::stereo(), true)
-                         )
+                         .withOutput("Output", juce::AudioChannelSet::stereo(), true))
     , undoManager_ {}
     , parameters_ {
           *this,
@@ -29,24 +28,13 @@ Juce6DemoProcessor::Juce6DemoProcessor()
     gain_     = parameters_.getRawParameterValue("gain");
 }
 
-Juce6DemoProcessor::~Juce6DemoProcessor() { }
-
 const juce::String Juce6DemoProcessor::getName() const { return JucePlugin_Name; }
 
-bool Juce6DemoProcessor::acceptsMidi() const
-{
-    return false;
-}
+bool Juce6DemoProcessor::acceptsMidi() const { return false; }
 
-bool Juce6DemoProcessor::producesMidi() const
-{
-    return false;
-}
+bool Juce6DemoProcessor::producesMidi() const { return false; }
 
-bool Juce6DemoProcessor::isMidiEffect() const
-{
-    return false;
-}
+bool Juce6DemoProcessor::isMidiEffect() const { return false; }
 
 double Juce6DemoProcessor::getTailLengthSeconds() const { return 0.0; }
 

@@ -6,7 +6,7 @@ class Juce6DemoProcessorEditor final : public juce::AudioProcessorEditor
 {
 public:
     explicit Juce6DemoProcessorEditor(Juce6DemoProcessor&);
-    ~Juce6DemoProcessorEditor() override;
+    ~Juce6DemoProcessorEditor() override = default;
 
     void paint(juce::Graphics&) override;
     void resized() override;

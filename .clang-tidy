@@ -1,0 +1,7 @@
+Checks:          '-*,cppcoreguidelines-*,modernize-*,portability-*,readability-*,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-special-member-functions,-cppcoreguidelines-owning-memory,-cppcoreguidelines-macro-usage,-cppcoreguidelines-pro-type-vararg,-cppcoreguidelines-avoid-magic-numbers,-modernize-use-trailing-return-type,-readability-convert-member-functions-to-static,-readability-magic-numbers,-readability-uppercase-literal-suffix,-readability-const-return-type'
+WarningsAsErrors: '-*'
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: false
+FormatStyle:     none
+...
+readability-convert-member-functions-to-static
