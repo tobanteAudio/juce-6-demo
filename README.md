@@ -96,11 +96,14 @@ This seems to be related to [this issue](https://forum.juce.com/t/juceplugindefi
 
 ### Linux
 
+**First:**
+
 - PopOS (Ubuntu)
 - GCC 9.2, Clang 9, Clang trunk
 - CMake 3.17.2
-
   - Generators: Makefile, Ninja
+
+**Second:**
 
 - RaspberryPi 3
   - Raspbian 4.19
