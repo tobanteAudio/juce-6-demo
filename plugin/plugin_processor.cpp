@@ -87,12 +87,12 @@ void Juce6DemoProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     outputGain_.prepare(spec);
     outputGain_.setGainLinear(gain_->load());
 
-    auto const msec = 25.0f;
+    auto const msec      = 25.0f;
     auto const rmsWindow = msec * 0.001f * sampleRate / samplesPerBlock;
-    meterSource_.resize(getTotalNumInputChannels(),rmsWindow);
+    meterSource_.resize(getTotalNumInputChannels(), static_cast<int>(rmsWindow));
 }
 
-void Juce6DemoProcessor::releaseResources() { }
+void Juce6DemoProcessor::releaseResources() {}
 
 bool Juce6DemoProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
@@ -100,9 +100,14 @@ bool Juce6DemoProcessor::isBusesLayoutSupported(const BusesLayout& layouts) cons
     // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
         && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
-    { return false; }
+    {
+        return false;
+    }
 
-    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet()) { return false; }
+    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
+    {
+        return false;
+    }
     return true;
 }
 
@@ -115,7 +120,9 @@ void Juce6DemoProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     auto const totalNumInputChannels  = getTotalNumInputChannels();
     auto const totalNumOutputChannels = getTotalNumOutputChannels();
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-    { buffer.clear(i, 0, buffer.getNumSamples()); }
+    {
+        buffer.clear(i, 0, buffer.getNumSamples());
+    }
 
     // dsp buffer
     juce::dsp::AudioBlock<float> ioBuffer(buffer);
@@ -153,7 +160,10 @@ void Juce6DemoProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     juce::ValueTree tree = juce::ValueTree::readFromData(data, static_cast<size_t>(sizeInBytes));
     jassert(tree.isValid());
-    if (tree.isValid()) { parameters_.state = tree; }
+    if (tree.isValid())
+    {
+        parameters_.state = tree;
+    }
 }
 
 // This creates new instances of the plugin..
