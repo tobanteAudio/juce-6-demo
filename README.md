@@ -18,6 +18,7 @@
       - [Linux Issues](#linux-issues)
     - [General Issues](#general-issues)
   - [Suggestions](#suggestions)
+    - [Add option for name of binary data header](#add-option-for-name-of-binary-data-header)
     - [Split shared code cmake target](#split-shared-code-cmake-target)
       - [Example](#example)
       - [Fix](#fix)
@@ -140,6 +141,10 @@ Other projects using `JUCE` and a custom `CMake` config worked on this device.
   - set NDEBUG or DEBUG (macOS)
 
 ## Suggestions
+
+### Add option for name of binary data header
+
+Otherwise it's impossible to link a project to two binary data targets.
 
 ### Split shared code cmake target
 
