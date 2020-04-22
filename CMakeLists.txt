@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.15)
-
 project(tobanteAudioJuce6Demo VERSION 0.1.0)
 
 # Only do these if this is the main project,
@@ -8,12 +7,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # Let's nicely support folders in IDE's
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-    # Let's ensure -std=c++xx instead of -std=g++xx
-    set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to conform to")
-#    set(CMAKE_CXX_STANDARD_REQUIRED YES)
-#    set(CMAKE_CXX_EXTENSIONS NO)
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED YES)
+    set(CMAKE_CXX_EXTENSIONS NO)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-    set(BUILD_SHARED_LIBS OFF)
 
     include(CheckCXXCompilerFlag)
     check_cxx_compiler_flag("-march=native" COMPILER_SUPPORTS_MARCH_NATIVE)

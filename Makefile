@@ -7,7 +7,7 @@ all: config build test
 
 .PHONY: config
 config: 
-	cmake -S. -B$(BUILD_DIR) -G$(GENERATOR)
+	cmake -S. -B$(BUILD_DIR) -G$(GENERATOR) -DCMAKE_BUILD_TYPE=$(CONFIG)
 
 .PHONY: build
 build:
