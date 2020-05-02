@@ -87,13 +87,7 @@ make format             # run clang-format
 
 #### Apple Issues
 
-Setting LTO in cmake breaks build:
-
-```cmake
-set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-```
-
-This seems to be related to [this issue](https://forum.juce.com/t/juceplugindefines-h-breaks-our-build/38767). Will have to look closer at `JucePluginDefines.h`.
+- **None**
 
 ### Linux
 
@@ -133,40 +127,3 @@ in function `std::__atomic_base<long long>::operator^=(long long)':
 ```
 
 Other projects using `JUCE` and a custom `CMake` config worked on this device.
-
-### General Issues
-
-- Linking test target to shared code does **not**:
-  - set juce module include path
-  - set NDEBUG or DEBUG (macOS)
-
-## Suggestions
-
-### Add option for name of binary data header
-
-Otherwise it's impossible to link a project to two binary data targets.
-
-### Split shared code cmake target
-
-Currently `JUCE` library code & user code are build in one CMake library target.
-This becomes a problem using certain CMake features.
-
-#### Example
-
-Adding an interface target for compiler warnings will enable those warnings
-on library code too. This makes the build output very noisy.
-
-```cmake
-add_library(compiler_warnings INTERFACE)
-add_library(tobanteAudio::CompilerWarnings ALIAS compiler_warnings)
-target_compile_options(compiler_warnings INTERFACE -Wall -Wextra -Wpedantic)
-juce_add_plugin(Juce6DemoPlugin ...)
-target_link_libraries(Juce6DemoPlugin PRIVATE tobanteAudio::CompilerOptions ...)
-```
-
-#### Fix
-
-Split into 2 CMake targets:
-
-- `JUCE` library code
-- User shared code
