@@ -39,16 +39,12 @@ target_compile_definitions(Juce6DemoPlugin
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0
-        JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1
         )
 
-# juce_add_binary_data(AudioPluginData SOURCES ...)
-juce_add_module(${CMAKE_SOURCE_DIR}/3rd_party/ff_meters)
 target_link_libraries(Juce6DemoPlugin PRIVATE
         tobanteAudio::CompilerWarnings
         tobanteAudio::CompilerOptions
         tobanteAudio::CodeCoverage
-        # AudioPluginData
         juce::juce_audio_utils
         juce::juce_dsp
         ff_meters

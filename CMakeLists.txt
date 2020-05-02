@@ -45,7 +45,7 @@ include(CompilerWarnings)
 
 # JUCE
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
-# juce_set_vst2_sdk_path(...)
+juce_add_module(${CMAKE_SOURCE_DIR}/3rd_party/ff_meters)
 # juce_set_aax_sdk_path(...)
 
 # Company settings
