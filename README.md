@@ -4,25 +4,6 @@
 | :--------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
 | [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/tobanteAudio/juce-6-demo/blob/master/LICENSE) | [![CircleCi](https://circleci.com/gh/tobanteAudio/juce-6-demo.svg?style=svg)](https://circleci.com/gh/tobanteAudio/juce-6-demo) | [![Build Status](https://travis-ci.org/tobanteAudio/juce-6-demo.svg?branch=master)](https://travis-ci.org/tobanteAudio/juce-6-demo) | [![Build status](https://ci.appveyor.com/api/projects/status/0h87rerxd72b52au/branch/master?svg=true)](https://ci.appveyor.com/project/tobanteAudio/juce-6-demo/branch/master) | [![codecov](https://codecov.io/gh/tobanteAudio/juce-6-demo/branch/master/graph/badge.svg)](https://codecov.io/gh/tobanteAudio/juce-6-demo) |
 
-- [JUCE 6 Preview - Demo Project](#juce-6-preview---demo-project)
-  - [Features](#features)
-    - [ToDo](#todo)
-  - [Quick Start](#quick-start)
-    - [Tools](#tools)
-  - [Tested On](#tested-on)
-    - [Windows](#windows)
-      - [Windows Issues](#windows-issues)
-    - [Apple](#apple)
-      - [Apple Issues](#apple-issues)
-    - [Linux](#linux)
-      - [Linux Issues](#linux-issues)
-    - [General Issues](#general-issues)
-  - [Suggestions](#suggestions)
-    - [Add option for name of binary data header](#add-option-for-name-of-binary-data-header)
-    - [Split shared code cmake target](#split-shared-code-cmake-target)
-      - [Example](#example)
-      - [Fix](#fix)
-
 ## Features
 
 - CMake build
